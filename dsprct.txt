@@ -3,50 +3,68 @@
 student like Roll No, Name and SGPA. a. Design a roll call list, arrange list of students according to roll numbers in ascending order
 (Use Bubble Sort)
 Program:
-// Online C++ compiler to run C++ program online
 #include <iostream>
 #include <string>
+
 using namespace std;
-// Structure to represent a student
+
 struct Student {
-int rollNo;
-string name;
-float sgpa;
+    int rollNo;
+    string name;
+    float sgpa;
 };
-// Function to perform bubble sort on the student array based on roll numbers
+
+void swapStudents(Student &a, Student &b) {
+    Student temp = a;
+    a = b;
+    b = temp;
+}
+
 void bubbleSort(Student arr[], int n) {
-for (int i = 0; i < n - 1; i++) {
-for (int j = 0; j < n - i - 1; j++) {
-// Compare roll numbers and swap if necessary
-if (arr[j].rollNo > arr[j + 1].rollNo) {
-// Swap
-swap(arr[j], arr[j + 1]);
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j].rollNo > arr[j + 1].rollNo) {
+                swapStudents(arr[j], arr[j + 1]);
+            }
+        }
+    }
 }
-}
-}
-}
-// Function to print the roll call list
-void printRollCallList(Student arr[], int n) {
-cout << "Roll Call List (Sorted by Roll Numbers):\n";
-cout << "-------------------------------------\n";
-cout << "Roll No\tName\tSGPA\n";
-cout << "-------------------------------------\n";
-for (int i = 0; i < n; i++) {
-cout << arr[i].rollNo << "\t" << arr[i].name << "\t" << arr[i].sgpa << "\n";
-}
-}
+
 int main() {
-// Number of students in the class
-const int n = 5; // You can change this value based on the actual number of students
-// Creating an array of students
-Student students[n] = {
-{201, "John", 3.8}, {204, "Diana", 3.5}, {202, "Mike", 3.2}, {205, "Sara", 3.9}, {203, "Tom", 3.6}
-};
-// Applying bubble sort to arrange students based on roll numbers
-bubbleSort(students, n);
-// Printing the roll call list
-printRollCallList(students, n);
-return 0;
+    int n;
+
+    cout << "Enter the number of students: ";
+    cin >> n;
+
+    // Create an array of students
+    Student students[n];
+
+    // Input student details
+    for (int i = 0; i < n; i++) {
+        cout << "Enter details for student " << i + 1 << ":\n";
+        cout << "Roll No: ";
+        cin >> students[i].rollNo;
+        cout << "Name: ";
+        cin.ignore(); // Ignore the newline character left in the buffer
+        getline(cin, students[i].name);
+        cout << "SGPA: ";
+        cin >> students[i].sgpa;
+    }
+
+    // Sort the students based on roll numbers using Bubble Sort
+    bubbleSort(students, n);
+
+    // Display the roll call list
+    cout << "\nRoll Call List (Sorted by Roll No):\n";
+    cout << "---------------------------------\n";
+    cout << "Roll No\tName\t\tSGPA\n";
+    cout << "---------------------------------\n";
+    for (int i = 0; i < n; i++) {
+        cout << students[i].rollNo << "\t" << students[i].name << "\t\t" << students[i].sgpa << "\n";
+    }
+    cout << "---------------------------------\n";
+
+    return 0;
 }
 Output :-
 2. Consider a student database of SEIT class. Database contains different fields of every
